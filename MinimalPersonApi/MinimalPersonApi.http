@@ -1,0 +1,47 @@
+﻿@MinimalPersonApi_HostAddress = https://localhost:7191
+
+POST {{MinimalPersonApi_HostAddress}}/persons
+Content-Type: application/json
+
+{
+  "Name": "Grzegorz",
+  "Surname": "Brzęczyszczykiewicz",
+  "DateOfBirth": "1936-01-11",
+  "Address": "Chrząszczyżewoszyce"
+}
+
+###
+
+POST {{MinimalPersonApi_HostAddress}}/persons
+Content-Type: application/json
+
+{
+  "Name": "Albert",
+  "Surname": "Einstein",
+  "DateOfBirth": "1879-03-14",
+  "Address": "Ulm"
+}
+
+###
+
+GET {{MinimalPersonApi_HostAddress}}/persons
+
+###
+
+GET {{MinimalPersonApi_HostAddress}}/persons/1
+
+###
+
+GET {{MinimalPersonApi_HostAddress}}/persons/2
+
+###
+
+POST {{MinimalPersonApi_HostAddress}}/persons
+Content-Type: application/json
+
+{
+  "Name": "Gallus",
+  "Surname": "Anonymus",
+  "DateOfBirth": "3000-01-01",
+  "Address": "Terra"
+}
