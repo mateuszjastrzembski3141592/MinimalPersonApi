@@ -4,8 +4,8 @@ POST {{MinimalPersonApi_HostAddress}}/persons
 Content-Type: application/json
 
 {
-  "Name": "Grzegorz",
-  "Surname": "Brzęczyszczykiewicz",
+  "Name": " Grzegorz",
+  "Surname": "Brzęczyszczykiewicz ",
   "DateOfBirth": "1936-01-11",
   "Address": "Chrząszczyżewoszyce"
 }
@@ -45,3 +45,17 @@ Content-Type: application/json
   "DateOfBirth": "3000-01-01",
   "Address": "Terra"
 }
+
+###
+
+POST {{MinimalPersonApi_HostAddress}}/persons
+Content-Type: application/json
+
+{
+  "Name": "   ",
+  "Surname": "    ",
+  "DateOfBirth": "1000-01-01",
+  "Address": "    "
+}
+
+###

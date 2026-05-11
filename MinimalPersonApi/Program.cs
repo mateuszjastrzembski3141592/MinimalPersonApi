@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using MinimalPersonApi.Data;
 using MinimalPersonApi.DTOs;
 using MinimalPersonApi.Models;
+using System.Net;
+using System.Xml.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,17 +59,28 @@ app.MapPost("/persons", async (CreatePerson newPerson, PersonDbContext personDbC
 {
     var db = personDbContext.Persons;
 
+    if (string.IsNullOrWhiteSpace(newPerson.Name) ||
+        string.IsNullOrWhiteSpace(newPerson.Surname) ||
+        string.IsNullOrWhiteSpace(newPerson.Address))
+    {
+        return Results.BadRequest("Name, Surname, and Address fields cannot be empty or consist of only white spaces.");
+    }
+
+    if (newPerson.DateOfBirth > DateOnly.FromDateTime(DateTime.Now))
+    {
+        return Results.BadRequest("Date of birth can't be a future date.");
+    }
+
+    newPerson.Name = newPerson.Name.Trim();
+    newPerson.Surname = newPerson.Surname.Trim();
+    newPerson.Address = newPerson.Address.Trim();
+
     if (await db.AnyAsync(p =>
         p.Name == newPerson.Name &&
         p.Surname == newPerson.Surname &&
         p.DateOfBirth == newPerson.DateOfBirth))
     {
         return Results.Conflict("This person already exists in the database.");
-    }
-
-    if (newPerson.DateOfBirth > DateOnly.FromDateTime(DateTime.Now))
-    {
-        return Results.BadRequest("Date of birth can't be a future date.");
     }
 
     var person = new Person()
